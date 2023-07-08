@@ -11,6 +11,13 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-main)', 'sans-serif'],
+      },
+      boxShadow: {
+        step1Button: '-5px -5px var(--primary)',
+        'step1Button-blur': '-5px -5px 5px var(--primary)',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -42,8 +49,12 @@ module.exports = {
           foreground: 'hsl(var(--popover-foreground))',
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
+        },
+        side: {
+          DEFAULT: 'var(--side)',
+          foreground: 'var(--side-foreground)',
         },
       },
       borderRadius: {
@@ -65,6 +76,16 @@ module.exports = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+    },
+    screens: {
+      '2xs': '320px',
+      xs: '480px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+      '3xl': '1920px',
     },
   },
   plugins: [require('tailwindcss-animate')],

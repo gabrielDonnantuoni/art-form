@@ -13,8 +13,11 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
  
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card: #F5F6FA;
+    --card-foreground: #000;
+
+    --side: #F9FAFC;
+    --side-foreground: #000;
  
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
@@ -23,7 +26,7 @@
     --primary-foreground: #DEE7FE;
  
     --secondary: #FA3C22;
-    --secondary-foreground: #f8fafc;
+    --secondary-foreground: #F8FAFC;
  
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
@@ -46,8 +49,11 @@
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
  
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
+    --card: #F5F6FA;
+    --card-foreground: #000;
+
+    --side: #F9FAFC;
+    --side-foreground: #000;
  
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
