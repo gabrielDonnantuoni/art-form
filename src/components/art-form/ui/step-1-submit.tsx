@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback } from 'react'
 
 interface Props {
@@ -17,7 +19,7 @@ export default function Step1Submit({ templateModel, registryType }: Props) {
   return (
     <button
       onClick={handleSubmitStep1}
-      className="h-12 w-full rounded-lg bg-primary-foreground text-primary transition-colors hover:bg-secondary hover:text-secondary-foreground"
+      className="w-full rounded-lg bg-primary-foreground p-2 text-primary transition-colors hover:bg-secondary hover:text-secondary-foreground"
     >
       {registryType}
     </button>
