@@ -1,15 +1,14 @@
-import { useCallback, useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 
 export function useMediaQuery(query: string): boolean {
-  const matchMedia = useMemo(() => window.matchMedia(query), [query])
-
-  const [matches, setMatches] = useState<boolean>(matchMedia.matches)
-
-  const handleChange = useCallback(() => {
-    setMatches(matchMedia.matches)
-  }, [matchMedia.matches])
+  const [matches, setMatches] = useState<boolean>(false)
 
   useEffect(() => {
+    const matchMedia = window.matchMedia(query)
+
+    function handleChange() {
+      setMatches(matchMedia.matches)
+    }
     // Triggered at the first client-side load and if query changes
     handleChange()
 
@@ -18,7 +17,6 @@ export function useMediaQuery(query: string): boolean {
     return () => {
       matchMedia.removeEventListener('change', handleChange)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query])
 
   return matches
