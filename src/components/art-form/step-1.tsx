@@ -29,6 +29,7 @@ export default function FormStep1() {
                 <Step1Submit
                   templateModel={templateModel}
                   registryType={option}
+                  isOutOfDate={isOutOfDate}
                   key={option}
                 />
               ))}

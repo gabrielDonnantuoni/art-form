@@ -1,20 +1,37 @@
 'use client'
 
-import { useCallback } from 'react'
+import { memo } from 'react'
+import { useFormContext } from 'react-hook-form'
+
+import { useARTFormStepNumber } from '~/lib/hooks'
+
+import type { FormSchema } from '../form-context'
 
 interface Props {
   templateModel: string
   registryType: string
+  isOutOfDate: boolean
 }
 
-export default function Step1Submit({ templateModel, registryType }: Props) {
-  const handleSubmitStep1 = useCallback(() => {
+const Step1Submit = memo(function Step1Submit({
+  templateModel,
+  registryType,
+  isOutOfDate,
+}: Props) {
+  const { setValue } = useFormContext<FormSchema>()
+  const stepNumber = useARTFormStepNumber()
+
+  function handleSubmitStep1() {
     // Save templateModel and registryType to localStorage and formContext
-    console.log(templateModel, registryType)
+    console.warn(templateModel, registryType)
+    setValue('templateModel', templateModel as FormSchema['templateModel'])
+    setValue('registryType', registryType as FormSchema['registryType'])
+    setValue('isOutOfDate', isOutOfDate)
 
     // Go to step 2
     //
-  }, [templateModel, registryType])
+    stepNumber.set(2)
+  }
 
   return (
     <button
@@ -24,4 +41,6 @@ export default function Step1Submit({ templateModel, registryType }: Props) {
       {registryType}
     </button>
   )
-}
+})
+
+export default Step1Submit

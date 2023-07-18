@@ -1,16 +1,16 @@
 import Image from 'next/image'
 import React from 'react'
 
-interface Option1 {
+interface IconProps {
   icon: React.ElementType
 }
 
-interface Option2 {
+interface ImageProps {
   src: string
   alt: string
 }
 
-export type Step1ButtonProps = (Option1 | Option2) & {
+type Step1ButtonProps = (IconProps | ImageProps) & {
   templateModel: string
   isOutOfDate: boolean
 }

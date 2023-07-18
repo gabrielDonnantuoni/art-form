@@ -21,8 +21,23 @@ module.exports = {
   },
   ignorePatterns: [],
   rules: {
-    '@typescript-eslint/consistent-type-imports': ['warn'],
+    '@typescript-eslint/consistent-type-imports': [
+      'error',
+      { prefer: 'type-imports' },
+    ],
+    '@typescript-eslint/consistent-type-exports': 'error',
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: {
+          attributes: false,
+        },
+      },
+    ],
+    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
+    'import/no-duplicates': 'error',
     'import/no-unresolved': 'error',
     'import/order': [
       'error',
