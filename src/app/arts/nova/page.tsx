@@ -9,7 +9,7 @@ export default function Page() {
     <ARTFormContext>
       <main className="flex w-full flex-col sm:flex-row">
         <Stepper />
-        <div className="flex flex-col">
+        <div className="flex w-full flex-col">
           <ARTFormRoot>
             <Steps />
           </ARTFormRoot>
