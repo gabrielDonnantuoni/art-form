@@ -7,7 +7,7 @@ import { Stepper } from '~/components/art-form/ui/stepper'
 export default function Page() {
   return (
     <ARTFormContext>
-      <main className="flex w-full flex-col sm:flex-row">
+      <main className="flex h-full w-full flex-col sm:flex-row">
         <Stepper />
         <div className="flex w-full flex-col">
           <ARTFormRoot>

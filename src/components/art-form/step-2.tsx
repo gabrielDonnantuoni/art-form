@@ -86,7 +86,7 @@ export default function FormStep2() {
       <div className={twm('flex w-full flex-col', 'sm:flex-row sm:space-x-5')}>
         <Form.Field
           control={form.control}
-          name="observation"
+          name="description"
           render={({ field }) => (
             <Form.Item className={twm('flex-1', 'sm:flex-1')}>
               <Form.Label className="leading-2 mt-3 h-4 text-xs font-bold uppercase">

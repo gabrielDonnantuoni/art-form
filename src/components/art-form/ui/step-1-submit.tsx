@@ -23,13 +23,11 @@ const Step1Submit = memo(function Step1Submit({
 
   function handleSubmitStep1() {
     // Save templateModel and registryType to localStorage and formContext
-    console.warn(templateModel, registryType)
-    setValue('templateModel', templateModel as FormSchema['templateModel'])
-    setValue('registryType', registryType as FormSchema['registryType'])
+    setValue('templateModel', templateModel)
+    setValue('registryType', registryType)
     setValue('isOutOfDate', isOutOfDate)
 
     // Go to step 2
-    //
     stepNumber.set(2)
   }
 

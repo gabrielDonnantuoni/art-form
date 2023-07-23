@@ -13,14 +13,14 @@ export function ARTFormRoot({ children }: Props) {
   const form = useFormContext<FormSchema>()
 
   function onSubmit(data: FormSchema) {
-    console.log('onSubmit')
-    console.log(data)
+    console.warn('onSubmit')
+    console.warn(data)
   }
 
   const handleWrongSubmit: SubmitErrorHandler<FormSchema> = (errors, evt) => {
-    console.log('handleWrongSubmit')
-    console.log(errors)
-    console.log(evt)
+    console.warn('handleWrongSubmit')
+    console.warn(errors)
+    console.warn(evt)
   }
 
   return (

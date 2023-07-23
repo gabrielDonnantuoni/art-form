@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-br">
       <body
-        className={`${montserrat.variable} bg-background font-sans text-foreground`}
+        className={`${montserrat.variable} h-screen bg-background font-sans text-foreground`}
       >
         {children}
       </body>
