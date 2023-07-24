@@ -2,7 +2,6 @@ import { useFormContext, useFieldArray } from 'react-hook-form'
 
 import type { FormSchema } from '~/components/art-form/form-context'
 import { Button } from '~/components/ui/button'
-import { twm } from '~/lib/utils'
 
 import { ActivityGroup } from './ui/activity/activity-group'
 
@@ -17,29 +16,28 @@ export default function FormStep3() {
   })
 
   return (
-    <div className="flex max-w-[870px] flex-col space-y-1 p-5">
-      <div className={twm('flex flex-col space-y-3', 'sm:flex')}>
-        {fields.map((field, index) => (
-          <ActivityGroup
-            index={index}
-            key={field.id}
-            removeFunc={remove}
-            control={form.control}
-          />
-        ))}
-        <Button
-          onClick={() =>
-            append({
-              activityLevel: '',
-              professionalActivity: '',
-              activities: [{ activity: '', quantity: 0, unit: '' }],
-            })
-          }
-          className="mt-4 rounded-3xl"
-        >
-          Adicionar Grupo de Atividades
-        </Button>
-      </div>
+    <div className="flex w-full max-w-[870px] flex-col space-y-3 p-5">
+      {fields.map((field, index) => (
+        <ActivityGroup
+          index={index}
+          key={field.id}
+          removeFunc={remove}
+          control={form.control}
+        />
+      ))}
+      <Button
+        type="button"
+        onClick={() =>
+          append({
+            activityLevel: '',
+            professionalActivity: '',
+            activities: [{ activity: '', quantity: 0, unit: '' }],
+          })
+        }
+        className="mx-auto mt-4 w-3/4 min-w-[250px] rounded-3xl"
+      >
+        Adicionar Grupo de Atividades
+      </Button>
     </div>
   )
 }

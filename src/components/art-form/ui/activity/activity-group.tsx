@@ -1,13 +1,15 @@
-import { X } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { memo } from 'react'
 import type { Control, UseFieldArrayRemove } from 'react-hook-form'
 import { useFieldArray, useWatch } from 'react-hook-form'
 
 import type { FormSchema } from '~/components/art-form/form-context'
 import * as Accordion from '~/components/ui/accordion'
+import { Autocomplete } from '~/components/ui/autocomplete'
 import { Button } from '~/components/ui/button'
 import * as Form from '~/components/ui/form'
-import { Input } from '~/components/ui/input'
+import { activityLevelOptions } from '~/data/activity-level'
+import { professionalActivityOptions } from '~/data/professional-activity'
 
 import { Activity } from './activity'
 
@@ -37,7 +39,7 @@ export const ActivityGroup = memo(function ActivityGroup({
     <Accordion.Root
       type="single"
       collapsible
-      className="w-full rounded-sm border-2 p-2"
+      className="w-full rounded-sm border-2 px-4 py-2"
     >
       <Accordion.Item value={`ActivityGroup-${index}`} className="border-none">
         <Accordion.Trigger>
@@ -50,25 +52,26 @@ export const ActivityGroup = memo(function ActivityGroup({
             {index !== 0 && (
               <Button
                 onClick={() => removeFunc(index)}
-                className="ml-1 h-4 w-4 border-none bg-popover p-0"
+                className="ml-1 h-4 w-4 border-none bg-popover p-0 text-popover-foreground hover:text-red-500"
+                asChild
               >
-                <X className="h-4 w-4 text-popover-foreground hover:text-red-500" />
+                <Trash2 />
               </Button>
             )}
           </div>
         </Accordion.Trigger>
-        <Accordion.Content>
+        <Accordion.Content className="overflow-visible">
           <Form.Field
             control={control}
             name={`activityGroups.${index}.activityLevel`}
             render={({ field }) => (
               <Form.Item className="flex-1">
                 <Form.Label className="leading-2 mt-3 h-4 text-xs font-bold uppercase">
-                  Nível atividade
+                  Nível de atividade
                 </Form.Label>
                 <Form.Control>
-                  <Input
-                    type="text"
+                  <Autocomplete
+                    options={activityLevelOptions}
                     {...field}
                     placeholder="Nível de atividade"
                   />
@@ -87,8 +90,8 @@ export const ActivityGroup = memo(function ActivityGroup({
                   Atividade profissional
                 </Form.Label>
                 <Form.Control>
-                  <Input
-                    type="text"
+                  <Autocomplete
+                    options={professionalActivityOptions}
                     {...field}
                     placeholder="Atividade profissional"
                   />
@@ -110,7 +113,7 @@ export const ActivityGroup = memo(function ActivityGroup({
           <div className="flex items-center justify-center">
             <Button
               onClick={() => append({ activity: '', quantity: 0, unit: '' })}
-              className="mx-auto mt-4 w-3/4 rounded-3xl bg-secondary hover:bg-secondary-hover"
+              className="mx-auto mt-4 w-3/5 min-w-[170px] rounded-3xl bg-secondary hover:bg-secondary-hover"
             >
               Adicionar atividade
             </Button>

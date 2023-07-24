@@ -1,13 +1,16 @@
-import { X } from 'lucide-react'
+import { Trash2 } from 'lucide-react'
 import { memo } from 'react'
 import { useWatch } from 'react-hook-form'
 import type { Control, UseFieldArrayRemove } from 'react-hook-form'
 
 import type { FormSchema } from '~/components/art-form/form-context'
 import * as Accordion from '~/components/ui/accordion'
+import { Autocomplete } from '~/components/ui/autocomplete'
 import { Button } from '~/components/ui/button'
 import * as Form from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
+import { activities } from '~/data/activities'
+import { units } from '~/data/unit'
 import { twm } from '~/lib/utils'
 
 interface Props {
@@ -34,9 +37,11 @@ export const Activity = memo(function Activity({
           <div className="flex items-center">
             {field.activity ? (
               <div className="flex items-center">
-                <p className="max-w-[100px] truncate">{field.activity}</p>
-                {field.quantity && field.unit && (
-                  <span className="text-xs">
+                <p className="max-w-[200px] truncate sm:max-w-[360px] lg:max-w-[560px]">
+                  {field.activity}
+                </p>
+                {field.quantity > 0 && field.unit && (
+                  <span className="ml-2 text-xs">
                     {` - ${field.quantity} ${field.unit}`}
                   </span>
                 )}
@@ -47,14 +52,15 @@ export const Activity = memo(function Activity({
             {index !== 0 && (
               <Button
                 onClick={() => removeFunc(index)}
-                className="ml-1 h-4 w-4 border-none bg-popover p-0"
+                className="ml-1 h-4 w-4 border-none bg-popover p-0 text-popover-foreground hover:text-red-500"
+                asChild
               >
-                <X className="h-4 w-4 text-popover-foreground hover:text-red-500" />
+                <Trash2 />
               </Button>
             )}
           </div>
         </Accordion.Trigger>
-        <Accordion.Content>
+        <Accordion.Content className="overflow-visible">
           <Form.Field
             control={control}
             name={`activityGroups.${parentIndex}.activities.${index}.activity`}
@@ -64,7 +70,11 @@ export const Activity = memo(function Activity({
                   Atividade
                 </Form.Label>
                 <Form.Control>
-                  <Input type="text" {...field} placeholder="Atividade" />
+                  <Autocomplete
+                    options={activities}
+                    {...field}
+                    placeholder="Atividade"
+                  />
                 </Form.Control>
                 <Form.Message />
               </Form.Item>
@@ -101,11 +111,11 @@ export const Activity = memo(function Activity({
                     Unidade de Medida
                   </Form.Label>
                   <Form.Control>
-                    <Input
-                      type="text"
+                    <Autocomplete
+                      options={units}
                       {...field}
                       className=""
-                      placeholder="UN"
+                      placeholder="Ex: m, m², h, kg, etc."
                     />
                   </Form.Control>
                   <Form.Message />

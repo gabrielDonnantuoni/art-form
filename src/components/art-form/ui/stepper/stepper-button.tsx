@@ -48,7 +48,7 @@ export const StepperButton = memo(function StepperButton({
     >
       <div
         className={twm(
-          'relative z-20 flex h-7 w-7 items-center justify-center rounded-full border-[1.5px] border-gray-300 bg-transparent',
+          'relative flex h-7 w-7 items-center justify-center rounded-full border-[1.5px] border-gray-300 bg-transparent',
           'group-hover:border-gray-400',
           'group-aria-selected:border-primary group-aria-selected:ring-2 group-aria-selected:ring-primary',
           'group-aria-checked:border-primary group-aria-checked:bg-primary',

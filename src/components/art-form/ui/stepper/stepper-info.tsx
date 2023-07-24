@@ -26,8 +26,8 @@ export const StepperInfo = memo(function StepperButton({ stepTexts }: Props) {
           {stepTexts[currentStepNumber.value - 1]}
         </p>
         {currentStepNumber.value !== 4 && (
-          <p className="text-sm text-gray-400">
-            {stepTexts[currentStepNumber.value]}
+          <p className="text-xs text-gray-400">
+            Próximo: {stepTexts[currentStepNumber.value]}
           </p>
         )}
       </div>

@@ -24,7 +24,10 @@ export function ARTFormRoot({ children }: Props) {
   }
 
   return (
-    <form onSubmit={form.handleSubmit(onSubmit, handleWrongSubmit)}>
+    <form
+      onSubmit={form.handleSubmit(onSubmit, handleWrongSubmit)}
+      className="flex w-full items-center justify-center"
+    >
       {children}
     </form>
   )

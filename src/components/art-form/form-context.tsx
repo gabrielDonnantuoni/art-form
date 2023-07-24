@@ -25,7 +25,9 @@ const formSchema = z.object({
       activities: z.array(
         z.object({
           activity: z.string().min(...requiredMessageInput),
-          quantity: z.number().gt(0, { message: 'Valor deve ser maior que 0' }),
+          quantity: z
+            .number({ coerce: true })
+            .gt(0, { message: 'Valor deve ser maior que 0' }),
           unit: z.string().min(...requiredMessageInput),
         }),
       ),
@@ -33,7 +35,7 @@ const formSchema = z.object({
   ),
   client: z.string().min(...requiredMessageInput),
   addressOwner: z.string().min(...requiredMessageInput),
-  contractNumber: z.string().min(...requiredMessageInput),
+  contractNumber: z.string().optional(),
   publicWorksCode: z.string().optional(),
   contractStartDate: z.string().min(...requiredMessageInput),
   contractEndDate: z.string().min(...requiredMessageInput),
@@ -63,11 +65,11 @@ export function ARTFormContext({ children }: Props) {
       registryType: '',
       isOutOfDate: false,
       participation: '',
-      finality: '',
+      finality: 'SEM DEFINIÇÃO',
       contractedCompany: '',
       description: '',
-      classEntity: '',
-      institutionalAction: '',
+      classEntity: 'NENHUMA - NÃO OPTANTE',
+      institutionalAction: 'NENHUMA - NÃO OPTANTE',
       activityGroups: [
         {
           activityLevel: '',
@@ -94,6 +96,7 @@ export function ARTFormContext({ children }: Props) {
       accessibilityCheck: false,
       compromiseClause: false,
     },
+    mode: 'onTouched',
   })
 
   return <Form.Root {...form}>{children}</Form.Root>

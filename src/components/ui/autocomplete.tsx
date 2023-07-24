@@ -1,18 +1,13 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { X } from 'lucide-react'
+import { useEffect, useState, useCallback, forwardRef } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 import { Input } from '~/components/ui/input'
 import { twm } from '~/lib/utils'
 
-// options={[
-//   { label: 'Joana', value: 'joana' },
-//   { label: 'Gabriel', value: 'gabriel' },
-//   {
-//     label: 'Palavra muito grande',
-//     value: 'palavra muito grande',
-//   },
-// ]}
+import { Button } from './button'
 
 interface Option {
   label: string
@@ -20,39 +15,100 @@ interface Option {
 }
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  options: NonEmptyArray<Option>
+  options: NonEmptyArray<Option | string>
+  name: string
+  value: string
+  wrapperClassName?: string
 }
 
-const Autocomplete = React.forwardRef(function Autocomplete(
-  { options, className }: Props,
-  ref: React.ForwardedRef<HTMLInputElement>,
+const Autocomplete = forwardRef<HTMLInputElement, Props>(function (
+  { options, value, onChange, onBlur, name, wrapperClassName, ...props },
+  ref,
 ) {
-  const [currentOption, setCurrentOption] = useState<Option | undefined>(
-    undefined,
-  )
+  const { setValue: setInputValue } = useFormContext()
+
+  const [currentOption, setCurrentOption] = useState<
+    Option | string | undefined
+  >(undefined)
   const [showOptions, setShowOptions] = useState(false)
   const [cursor, setCursor] = useState(-1)
-  const [filteredOptions, setFilteredOptions] = useState<Option[]>(options)
-  const [value, setValue] = useState('')
+  const [filteredOptions, setFilteredOptions] =
+    useState<(Option | string)[]>(options)
 
-  function select(option: Option) {
-    setCurrentOption(option)
-    setShowOptions(false)
-  }
+  const select = useCallback(
+    function (option: Option | string) {
+      setCurrentOption(option)
+      setShowOptions(false)
+    },
+    [setCurrentOption, setShowOptions],
+  )
 
-  function handleChange(evt: React.ChangeEvent<HTMLInputElement>) {
-    setValue(evt.target.value)
-    setCursor(-1)
-    setShowOptions(true)
-  }
-
-  function handleBlur() {
-    setShowOptions(false)
-    setCursor(-1)
-
-    if (value !== currentOption?.label) {
-      setValue(currentOption?.label ?? '')
+  const getOptionLabel = useCallback(function (option?: Option | string) {
+    if (!option) {
+      return ''
     }
+    if (typeof option === 'string') {
+      return option
+    }
+    return option.label
+  }, [])
+
+  const getOptionValue = useCallback(function (option?: Option | string) {
+    if (!option) {
+      return ''
+    }
+    if (typeof option === 'string') {
+      return option
+    }
+    return option.value
+  }, [])
+
+  const setValue = useCallback(
+    function (
+      option?: Option | string,
+      options?: Partial<{
+        shouldValidate: boolean
+        shouldDirty: boolean
+        shouldTouch: boolean
+      }>,
+    ) {
+      setInputValue(name, getOptionLabel(option), options)
+    },
+    [setInputValue, name, getOptionLabel],
+  )
+
+  const handleChange = useCallback(
+    function (evt: React.ChangeEvent<HTMLInputElement>) {
+      onChange?.(evt)
+      setCursor(-1)
+      setShowOptions(true)
+    },
+    [onChange, setCursor, setShowOptions],
+  )
+
+  const blur = useCallback(
+    function () {
+      setShowOptions(false)
+      setCursor(-1)
+
+      if (value !== getOptionLabel(currentOption)) {
+        setValue(currentOption)
+      }
+    },
+    [value, currentOption, setValue, getOptionLabel],
+  )
+
+  const handleClear = useCallback(
+    function () {
+      setValue('', { shouldValidate: true, shouldTouch: true })
+      setCurrentOption(undefined)
+    },
+    [setValue],
+  )
+
+  function handleBlur(evt: React.FocusEvent<HTMLInputElement>) {
+    onBlur?.(evt)
+    blur()
   }
 
   const navHandlers = {
@@ -68,7 +124,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(
       }
     },
     Escape: () => {
-      handleBlur()
+      blur()
     },
   } as Record<string, (() => void) | undefined>
 
@@ -79,36 +135,47 @@ const Autocomplete = React.forwardRef(function Autocomplete(
   useEffect(() => {
     if (value) {
       const filtered = options.filter((option) =>
-        option.label.toLowerCase().includes(value.toLowerCase()),
+        getOptionLabel(option).toLowerCase().includes(value.toLowerCase()),
       )
       setFilteredOptions(filtered)
     } else {
       setFilteredOptions(options)
     }
-  }, [options, value])
+  }, [options, value, getOptionLabel])
 
   useEffect(() => {
-    setValue(currentOption?.label ?? '')
-  }, [currentOption])
+    if (currentOption) {
+      setValue(currentOption, { shouldDirty: true })
+    }
+  }, [currentOption, name, setValue, getOptionLabel])
 
   return (
-    <div className="relative w-full">
+    <div className={twm('relative w-full', wrapperClassName)}>
       <Input
+        {...props}
         type="text"
-        className={className}
         value={value}
+        name={name}
         onChange={handleChange}
         onFocus={() => setShowOptions(true)}
-        onKeyDown={handleNav}
         onClick={() => setShowOptions(true)}
         onBlur={handleBlur}
+        onKeyDown={handleNav}
         ref={ref}
-        // {...props}
       />
+      {value && (
+        <Button
+          className="absolute right-2 top-1/2 z-10 h-fit -translate-y-1/2 border-none bg-white p-1"
+          type="button"
+          onClick={handleClear}
+        >
+          <X className="h-4 w-4 text-gray-500 transition-colors hover:text-red-500" />
+        </Button>
+      )}
 
       <ul
         className={twm(
-          'absolute z-10 w-full rounded-lg shadow-lg',
+          'absolute z-10 max-h-[320px] w-full overflow-y-auto rounded-lg shadow-lg sm:max-h-[420px]',
           !showOptions && 'hidden',
         )}
       >
@@ -117,19 +184,19 @@ const Autocomplete = React.forwardRef(function Autocomplete(
             return (
               <li
                 className={twm(
-                  'bg:white z-20 px-4 py-2 hover:bg-gray-100',
+                  'z-20 bg-white px-4 py-2 hover:bg-gray-100',
                   cursor === index && 'bg-gray-100',
                 )}
-                key={option.value}
+                key={getOptionValue(option)}
                 onMouseDown={() => select(option)}
                 onMouseEnter={() => setCursor(index)}
               >
-                {option.label}
+                {getOptionLabel(option)}
               </li>
             )
           })
         ) : (
-          <li className="px-4 py-2 text-gray-500">
+          <li className="bg-white px-4 py-2 text-gray-500">
             Nenhum valor corresponde à pesquisa
           </li>
         )}

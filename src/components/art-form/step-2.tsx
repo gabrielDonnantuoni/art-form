@@ -2,16 +2,21 @@ import { ChevronRight } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
 
 import type { FormSchema } from '~/components/art-form/form-context'
+import { Autocomplete } from '~/components/ui/autocomplete'
 import * as Form from '~/components/ui/form'
 import { Input } from '~/components/ui/input'
 import { Textarea } from '~/components/ui/textarea'
+import { classEntityOptions } from '~/data/class-entity'
+import { finalityOptions } from '~/data/finality'
+import { institutionalActionOptions } from '~/data/institutionalAction'
+import { participationOptions } from '~/data/participation'
 import { twm } from '~/lib/utils'
 
 export default function FormStep2() {
   const form = useFormContext<FormSchema>()
 
   return (
-    <div className="flex max-w-[870px] flex-col space-y-1 p-5">
+    <div className="flex w-full max-w-[870px] flex-col space-y-2 p-5">
       <div className="mt-2 text-xs font-bold">
         <input type="checkbox" /> ART Originada de fiscalização?
       </div>
@@ -26,10 +31,9 @@ export default function FormStep2() {
                 Participação
               </Form.Label>
               <Form.Control>
-                <Input
-                  type="text"
+                <Autocomplete
+                  options={participationOptions}
                   {...field}
-                  className="border-b-4"
                   placeholder="Participação"
                 />
               </Form.Control>
@@ -47,10 +51,9 @@ export default function FormStep2() {
                 Finalidade
               </Form.Label>
               <Form.Control>
-                <Input
-                  type="text"
+                <Autocomplete
+                  options={finalityOptions}
                   {...field}
-                  className="border-b-4"
                   placeholder="Finalidade"
                 />
               </Form.Control>
@@ -73,7 +76,6 @@ export default function FormStep2() {
                 <Input
                   type="text"
                   {...field}
-                  className="border-b-4"
                   placeholder="Empresa contratada"
                 />
               </Form.Control>
@@ -105,7 +107,7 @@ export default function FormStep2() {
         />
       </div>
 
-      <div className=" mt-2 flex items-center text-xs font-bold uppercase">
+      <div className="flex items-center py-3 text-xs font-bold uppercase">
         <span className="">Responsável técnico</span>
         <ChevronRight />
       </div>
@@ -120,10 +122,9 @@ export default function FormStep2() {
                 Entidade de Classes
               </Form.Label>
               <Form.Control>
-                <Input
-                  type="text"
+                <Autocomplete
+                  options={classEntityOptions}
                   {...field}
-                  className="border-b-4"
                   placeholder="Entidade de classes"
                 />
               </Form.Control>
@@ -141,10 +142,9 @@ export default function FormStep2() {
                 Ação Institucional
               </Form.Label>
               <Form.Control>
-                <Input
-                  type="text"
+                <Autocomplete
+                  options={institutionalActionOptions}
                   {...field}
-                  className="border-b-4"
                   placeholder="Ação institucional"
                 />
               </Form.Control>

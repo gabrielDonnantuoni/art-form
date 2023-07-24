@@ -3,9 +3,8 @@
 import { memo } from 'react'
 import { useFormContext } from 'react-hook-form'
 
+import type { FormSchema } from '~/components/art-form/form-context'
 import { useARTFormStepNumber } from '~/lib/hooks'
-
-import type { FormSchema } from '../form-context'
 
 interface Props {
   templateModel: string

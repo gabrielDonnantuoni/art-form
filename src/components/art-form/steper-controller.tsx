@@ -12,7 +12,7 @@ export function StepperController() {
   return (
     <div
       className={twm(
-        'flex w-full justify-between p-5',
+        'flex w-full max-w-[870px] justify-between p-5',
         currentStepNumber.value === 1 && 'hidden',
       )}
     >
