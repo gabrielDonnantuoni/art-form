@@ -42,7 +42,7 @@ export const Activity = memo(function Activity({
                 </p>
                 {field.quantity > 0 && field.unit && (
                   <span className="ml-2 text-xs">
-                    {` - ${field.quantity} ${field.unit}`}
+                    {` - ${field.quantity} ${field.unit.split(' - ')[0]}`}
                   </span>
                 )}
               </div>

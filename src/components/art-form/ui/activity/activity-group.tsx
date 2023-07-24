@@ -47,7 +47,7 @@ export const ActivityGroup = memo(function ActivityGroup({
             {field.activityLevel && field.professionalActivity ? (
               <p>{`${field.activityLevel} - ${field.professionalActivity}`}</p>
             ) : (
-              <p>Novo Grupo de Atividade</p>
+              <p>Novo Grupo de Atividades</p>
             )}
             {index !== 0 && (
               <Button
