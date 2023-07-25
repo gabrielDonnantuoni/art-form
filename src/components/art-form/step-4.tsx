@@ -82,7 +82,13 @@ export default function FormStep4() {
           name="publicWorksCode"
           render={({ field }) => (
             <Form.Item className="flex-1">
-              <Form.Label className="leading-2 mt-3 h-4 text-xs font-bold uppercase">
+              <Form.Label
+                className={twm(
+                  'xs:text-xs',
+                  'sm:text-xs',
+                  'leading-2 mt-3 h-4 text-[10px] font-bold uppercase',
+                )}
+              >
                 Código de Obra Pública
               </Form.Label>
               <Form.Control>

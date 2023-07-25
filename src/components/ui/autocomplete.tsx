@@ -98,7 +98,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(
         className={className}
         value={value}
         onChange={handleChange}
-        onFocus={() => setShowOptions(true)}
+        onFocus={() => setShowOptions(false)}
         onKeyDown={handleNav}
         onClick={() => setShowOptions(true)}
         onBlur={handleBlur}
@@ -108,7 +108,7 @@ const Autocomplete = React.forwardRef(function Autocomplete(
 
       <ul
         className={twm(
-          'absolute z-10 w-full rounded-lg shadow-lg',
+          'absolute z-10 w-full rounded-lg bg-white shadow-lg',
           !showOptions && 'hidden',
         )}
       >
