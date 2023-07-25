@@ -11,7 +11,6 @@ import { finalityOptions } from '~/data/finality'
 import { institutionalActionOptions } from '~/data/institutionalAction'
 import { participationOptions } from '~/data/participation'
 import { twm } from '~/lib/utils'
-import { Autocomplete } from '../ui/autocomplete'
 
 export default function FormStep2() {
   const form = useFormContext<FormSchema>()
@@ -21,19 +20,6 @@ export default function FormStep2() {
       <div className="mt-2 text-xs font-bold">
         <input type="checkbox" /> ART Originada de fiscalização?
       </div>
-      <label
-        htmlFor=""
-        className="leading-2 mt-3 h-4 text-xs font-bold uppercase "
-      >
-        Teste
-      </label>
-      <Autocomplete
-        className="border-b-4"
-        options={[
-          { label: 'Joana', value: 'joana' },
-          { label: 'Isaac', value: 'isaac' },
-        ]}
-      ></Autocomplete>
 
       <div className={twm('flex w-full flex-col', 'sm:flex-row sm:space-x-5')}>
         <Form.Field
