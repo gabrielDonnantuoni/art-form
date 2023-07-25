@@ -16,10 +16,10 @@ export default function CardStep1({
   templateModelButton,
   registryTypeButtons,
 }: Props) {
-  const isMobile = useMediaQuery('(max-width: 640px)')
-  return isMobile ? (
+  const isSmall = useMediaQuery('(max-width: 800px)')
+  return isSmall ? (
     <Dialog.Root>
-      <Dialog.Trigger className="w-full sm:h-40 sm:w-40">
+      <Dialog.Trigger className="w-full md:h-40 md:w-40">
         {templateModelButton}
       </Dialog.Trigger>
       <Dialog.Portal>
@@ -37,7 +37,7 @@ export default function CardStep1({
     </Dialog.Root>
   ) : (
     <Popover.Root>
-      <Popover.Trigger className="w-full sm:h-40 sm:w-40">
+      <Popover.Trigger className="w-full md:h-40 md:w-40">
         {templateModelButton}
       </Popover.Trigger>
       <Popover.Content

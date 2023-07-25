@@ -3,9 +3,8 @@
 import { memo } from 'react'
 import { useFormContext } from 'react-hook-form'
 
+import type { FormSchema } from '~/components/art-form/form-context'
 import { useARTFormStepNumber } from '~/lib/hooks'
-
-import type { FormSchema } from '../form-context'
 
 interface Props {
   templateModel: string
@@ -23,13 +22,11 @@ const Step1Submit = memo(function Step1Submit({
 
   function handleSubmitStep1() {
     // Save templateModel and registryType to localStorage and formContext
-    console.warn(templateModel, registryType)
-    setValue('templateModel', templateModel as FormSchema['templateModel'])
-    setValue('registryType', registryType as FormSchema['registryType'])
+    setValue('templateModel', templateModel)
+    setValue('registryType', registryType)
     setValue('isOutOfDate', isOutOfDate)
 
     // Go to step 2
-    //
     stepNumber.set(2)
   }
 

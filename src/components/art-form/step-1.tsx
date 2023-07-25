@@ -7,7 +7,7 @@ import Step1Submit from './ui/step-1-submit'
 export default function FormStep1() {
   return (
     <div className="flex justify-center">
-      <div className="flex max-h-[720px] max-w-5xl flex-wrap items-center justify-center gap-5 px-10 py-10 md:gap-10 md:px-28">
+      <div className="flex max-h-[720px] max-w-5xl flex-wrap items-center justify-center gap-5 px-10 py-10 md:gap-10 xl:px-28">
         {artModelsAndRegistryTypes.map(
           ({
             templateModel,

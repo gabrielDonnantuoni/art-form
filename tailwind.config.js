@@ -27,10 +27,12 @@ module.exports = {
         primary: {
           DEFAULT: 'var(--primary)',
           foreground: 'var(--primary-foreground)',
+          hover: 'var(--primary-hover)',
         },
         secondary: {
           DEFAULT: 'var(--secondary)',
           foreground: 'var(--secondary-foreground)',
+          hover: 'var(--secondary-hover)',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -81,7 +83,7 @@ module.exports = {
       '2xs': '320px',
       xs: '480px',
       sm: '640px',
-      md: '768px',
+      md: '800px',
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',

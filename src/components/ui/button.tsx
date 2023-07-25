@@ -47,6 +47,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={twm(buttonVariants({ variant, size, className }))}
         ref={ref}
+        type="button"
         {...props}
       />
     )
